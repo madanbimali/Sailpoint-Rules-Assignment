@@ -9,30 +9,18 @@ import org.apache.commons.logging.Log;
 	import java.util.List;
 	import sailpoint.object.Bundle;
 	import java.util.HashMap;
+
+Map roleOwnerMap = new HashMap();
 	
-	Map map = new HashMap();
- 
-	List identities = context.getObjects(Identity.class);
-	
-	for (Identity iden: identities){
-	String name = iden.getDisplayName();
-	ArrayList list1 = new ArrayList();
-	ArrayList list2 = new ArrayList();
-      
-	if (iden != null){
-	List assignedRoles = iden.getAssignedRoles();
-	
-	for(Bundle bundle: assignedRoles){
-		list1.add(  "bundle: " + bundle.getName());
-		}
-	}if (iden != null){
+	List testList1 = new ArrayList();
+	List testList2 = new ArrayList();
+	for(Bundle bundle: roleBundleObjects){
+		testList1.add(bundle.getName());
+		testList2.add(bundle.getOwner().getName());
+		roleOwnerMap.put(testList1, testList2);
 		
-	List detectedRole = iden.getDetectedRoles();
-	for(Bundle bundle: detectedRole){
-		list2.add( "bundle: " + bundle.getName());
-		map.put(name, list1);
-		map.put(name, list2);
-		}
 	}
-}
-return map;
+	return roleOwnerMap;
+ 
+	
+	
