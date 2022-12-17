@@ -30,3 +30,40 @@ import org.apache.commons.logging.Log;
     
     }
   return list;
+or
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import sailpoint.api.SailPointContext;
+import sailpoint.object.Configuration;
+import sailpoint.object.ResourceObject;
+import sailpoint.tools.GeneralException;
+import sailpoint.object.Identity;
+import java.util.List;
+import sailpoint.object.Bundle;
+import sailpoint.object.Certification;
+
+ArrayList<String> list = new ArrayList<String>();
+
+// Get the list of all identities and certifications in the identity system
+List<Identity> identities = context.getObjects(Identity.class);
+List<Certification> certifications = context.getObjects(Certification.class);
+
+// Iterate through the certifications
+for (Certification certification : certifications) {
+  // Get the certification name and list of certifiers
+  String certificationName = certification.getCertificationName();
+  List<Identity> certifiers = certification.getCertifiers();
+
+  // Add the certification name to the list
+  list.add("Certification name: " + certificationName);
+
+  // Iterate through the certifiers
+  for (Identity certifier : certifiers) {
+    // Add the certifier's display name to the list
+    list.add("Certifier: " + certifier.getDisplayName());
+  }
+}
+
+// Return the list of certification names and certifiers
+return list;
+
